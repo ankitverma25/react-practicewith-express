@@ -4,7 +4,9 @@ function App() {
   const [password, setpassword] = useState('');
   const [name, setname] = useState('')
   const [amount, setamount] = useState('')
-  const [record,setrecord]=useState([{}])
+  const [record,setrecord]=useState([])
+
+  
 
 
   const handlesubmit=(e)=>{
@@ -31,6 +33,22 @@ function App() {
     logRecords();
   }, [record, logRecords]);
 
+useEffect(()=>{
+  if(record.length>0){
+    localStorage.setItem('records',JSON.stringify(record))
+    console.log("record saved in local storage also")
+  }
+},[record]);
+
+useEffect(()=>{
+ const storedRecords = JSON.parse(localStorage.getItem('records'))||[];
+ setrecord(storedRecords)
+},[]);
+
+
+
+
+
 
   return (
     <>
@@ -56,8 +74,9 @@ function App() {
 
 
         </form>
-        <div className="">
-          <table className="border-collapse border border-slate-500">
+        <div className="
+        ">
+          <table className={`border-collapse border border-slate-500`}>
             <thead>
               <tr>
                 <th className="border border-slate-500">Name</th>
