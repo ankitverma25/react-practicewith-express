@@ -7,6 +7,8 @@ function App() {
   const [record,setrecord]=useState([])
 
   
+const[show,setshow]=useState(false)
+
 
 
   const handlesubmit=(e)=>{
@@ -36,6 +38,7 @@ function App() {
 useEffect(()=>{
   if(record.length>0){
     localStorage.setItem('records',JSON.stringify(record))
+    // localStorage.clear()
     console.log("record saved in local storage also")
   }
 },[record]);
@@ -46,31 +49,31 @@ useEffect(()=>{
 },[]);
 
 
-
-
-
-
   return (
     <>
       <div className="p-2 font-extrabold text-4xl bg-gradient-to-bl text-center from-slate-500 to-red-600">Customer record</div>
       <div className="" >
         <form onSubmit={handlesubmit}>
+        customer name
           <input className='outline m-2' type="text" onChange={(e) => {
             e.preventDefault()
             setname(e.target.value)
-          }} value={name}/>
-            <input className='outline m-2' type="password" value={password} onChange={(e) => {
+          }} value={name}/> <br />
+           phone number <input className='outline m-2' type="password" value={password} onChange={(e) => {
             e.preventDefault()
             setpassword(e.target.value)
-          }} />
+          }} /> <br />
+          rupee
           <input className='outline m-2' type="number" value={amount} onChange={
             (e) => {
               e.preventDefault()
               setamount(e.target.value)
             }} />
-
+            <br />
+            <hr />
             <button type="submit">submit</button>
             <br />
+            <br/>
 
 
         </form>
@@ -90,7 +93,7 @@ useEffect(()=>{
                     <tr key={i}>
                       <td className="border border-slate-500">{item.name}</td>
                       <td className="border border-slate-500">{item.amount}</td>
-                      <td className="border border-slate-500">{item.password}</td>
+                      <td className="border border-slate-500">{show? item.password :"*".repeat(item.password.length)} </td>
                     </tr>
 
                   )
